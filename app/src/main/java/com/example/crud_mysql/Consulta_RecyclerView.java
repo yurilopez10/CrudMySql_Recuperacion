@@ -90,5 +90,60 @@ public class Consulta_RecyclerView extends AppCompatActivity {
     }
 
 
+    private void loadProductos() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        //Toast.makeText(Consulta_RecyclerView.this, ""+response, Toast.LENGTH_SHORT).show();
+
+                        try {
+                            JSONArray array = new JSONArray(response);
+                            int totalEncontrados = array.length();
+                            Toast.makeText(Consulta_RecyclerView.this, "Total: "+totalEncontrados, Toast.LENGTH_SHORT).show();
+
+                            for (int i = 0; i < array.length(); i++) {
+
+                                JSONObject articulosObject = array.getJSONObject(i);
+
+                                //String img = articulosObject.getString("imagen");
+                                //Toast.makeText(Consulta_RecyclerView.this, ""+img, Toast.LENGTH_SHORT).show();
+
+                                /*int codigo = articulosObject.getInt("codigo");
+                                String descripcion = articulosObject.getString("descripcion");
+                                double precio = articulosObject.getDouble("precio");
+                                String img = articulosObject.getString("imagen");
+                                Productos objeto = new Productos(codigo, descripcion, precio, img);
+                                productosList.add(objeto);*/
+
+                                productosList.add(new Productos(
+                                        articulosObject.getInt("codigo"),
+                                        articulosObject.getString("descripcion"),
+                                        articulosObject.getDouble("precio"),
+                                        articulosObject.getString("imagen")
+                                ));
+                            }
+
+                            adapter = new ProductsAdapter(Consulta_RecyclerView.this, productosList);
+                            recyclerView.setAdapter(adapter);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Consulta_RecyclerView.this, "Error. Compruebe su acceso a Internet.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //Volley.newRequestQueue(this).add(stringRequest);
+        // MySingleton.getInstance(this).addToRequestQueue(stringRequest);
+        MySingleton.getInstance(Consulta_RecyclerView.this).addToRequestQueue(stringRequest);
+    }
+
+
 }
 
