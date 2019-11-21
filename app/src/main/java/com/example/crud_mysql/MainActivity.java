@@ -410,5 +410,12 @@ public class MainActivity extends AppCompatActivity {
         return descripcion;   //return preferences.getString("tiempo", "Sin configurar.");
     }
 
+    public String getSharedPrecio(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("profeGamez", MODE_PRIVATE);
+        String precio = preferences.getString("precio","0.0");
+        return precio;   //return preferences.getString("tiempo", "Sin configurar.");
+    }
+
+
 
 }
