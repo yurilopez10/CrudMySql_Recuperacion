@@ -66,5 +66,29 @@ public class Consulta_RecyclerView extends AppCompatActivity {
 
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_consulta__recycler_view);
+
+
+
+        ///y esto para pantalla completa (oculta incluso la barra de estado)
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        productosList = new ArrayList<>();
+
+
+
+        //Toast.makeText(this, "Si", Toast.LENGTH_SHORT).show();
+
+        loadProductos();
+
+    }
+
+
 }
 
