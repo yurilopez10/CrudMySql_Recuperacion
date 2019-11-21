@@ -113,4 +113,53 @@ public class MainActivity extends AppCompatActivity {
         }
         /******************************************************************/
 
+
+
+        btn_guardar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(et_codigo.getText().toString().length()==0){
+                    et_codigo.setError("Campo obligatorio");
+                    inputEt = false;
+                }else {
+                    inputEt=true;
+                }
+                if(et_descripcion.getText().toString().length()==0){
+                    et_descripcion.setError("Campo obligatorio");
+                    inputEd = false;
+                }else {
+                    inputEd=true;
+                }
+                if(et_precio.getText().toString().length()==0){
+                    et_precio.setError("Campo obligatorio");
+                    input1 = false;
+                }else {
+                    input1=true;
+                }
+
+                if (inputEt && inputEd && input1){
+                    String codigo = et_codigo.getText().toString();
+                    String descripcion = et_descripcion.getText().toString();
+                    String precio = et_precio.getText().toString();
+                    manto.guardar(MainActivity.this, codigo, descripcion, precio);
+
+                    limpiarDatos();
+                    et_codigo.requestFocus();
+
+                    /*
+                    estadoGuarda = manto.guardar1(MainActivity.this, codigo, descripcion, precio);
+                    if(estadoGuarda){
+                        Toast.makeText(MainActivity.this, "Registro Almacenado Correctamente.", Toast.LENGTH_SHORT).show();
+                        limpiarDatos();
+                        et_codigo.requestFocus();
+                    }*/
+
+                }
+
+
+            }
+        });
+
+
 }
