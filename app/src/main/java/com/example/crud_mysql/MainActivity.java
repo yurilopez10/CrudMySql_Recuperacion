@@ -274,4 +274,127 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void limpiarDatos(){
+        et_codigo.setText(null);
+        et_descripcion.setText(null);
+        et_precio.setText(null);
+    }
+
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+         if(id == R.id.action_listaArticulos){
+            Intent spinnerActivity = new Intent(MainActivity.this, Consulta_RecyclerView.class);
+            startActivity(spinnerActivity);
+            return true;
+        }else if(id == R.id.action_salir){
+            DialogConfirmacion();
+            return true;
+        }
+
+         if (id == R.id.action_Acercade){
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                    context);
+            // Establecer el título
+            alertDialogBuilder.setTitle("Proyecto creado por:");
+            // Establecer mensaje de diálogo
+            alertDialogBuilder
+                    .setMessage("Simón Castro \nSIS 21B")
+                    .setCancelable(false)
+                    .setNegativeButton("Aceptar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // Si presiona que Aceptar se cerrara el mensaje de dialogo
+                            dialog.cancel();
+                        }
+                    });
+            // Crear mensaje AlertDialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            // Mostrar alert
+            alertDialog.show();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    /*
+    @Override
+    public void onSetDatosInput(Dto datos) {
+        //Toast.makeText(this, "Código: "+datos.getCodigo(), Toast.LENGTH_SHORT).show();
+    }*/
+
+
+    private void DialogConfirmacion(){
+        //startActivity(new Intent(getApplicationContext(),MainActivity.class));
+        String mensaje = "¿Realmente desea salir?";
+        dialogo = new AlertDialog.Builder(MainActivity.this);
+        dialogo.setIcon(R.drawable.ic_close);
+        dialogo.setTitle("Advertencia");
+        dialogo.setMessage(mensaje);
+        dialogo.setCancelable(false);
+        dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+            public void onClick(DialogInterface dialogo, int id) {
+                /*Intent intent = new Intent(DashboardLuces.this, luces_control_sms.class);
+                startActivity(intent);*/
+                MainActivity.this.finishAffinity();
+                //MainActivity.this.finish();
+            }
+        });
+        dialogo.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogo, int id) {
+                Toast.makeText(getApplicationContext(), "Operación Cancelada.", Toast.LENGTH_LONG).show();
+            }
+        });
+        dialogo.show();
+    }
+
+
+    //Creación de HILOS
+    void Hilo(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for(int i=1; i<=1; i++){
+                    demora();
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String cod = getSharedCodigo(MainActivity.this);
+                        String des = getSharedDescripcion(MainActivity.this);
+                        String pre = getSharedPrecio(MainActivity.this);
+
+                        et_codigo.setText(cod);
+                        et_descripcion.setText(des);
+                        et_precio.setText(pre);
+
+                        //Toast.makeText(MainActivity.this, "Código: "+cod + "\nPrecio: "+pre + "\nDescripción: "+des, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }).start();
+    }
+
+
+    private void demora(){
+        try{
+            Thread.sleep(1000);
+        }catch (InterruptedException e){}
+    }
+
 }
