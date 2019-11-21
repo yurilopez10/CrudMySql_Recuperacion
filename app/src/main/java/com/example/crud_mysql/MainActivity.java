@@ -194,4 +194,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        btn_consultaCodigo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //Begin...
+                if(et_codigo.getText().toString().length()==0){
+                    et_codigo.setError("campo obligatorio");
+                    inputEt = false;
+                }else {
+                    inputEt=true;
+                }
+
+                if(inputEt) {
+                    String codigo = et_codigo.getText().toString();
+                    manto.consultarCodigo(MainActivity.this, codigo);
+                    et_codigo.requestFocus();
+                }
+                //End
+
+            }
+        });
+
+
+
 }
