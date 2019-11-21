@@ -242,4 +242,36 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        btn_actualizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(et_codigo.getText().toString().length()==0){
+                    et_codigo.setError("campo obligatorio");
+                    inputEt = false;
+                }else {
+                    inputEt=true;
+                }
+
+                if(inputEt) {
+
+                    String cod = et_codigo.getText().toString();
+                    String descripcion = et_descripcion.getText().toString();
+                    String precio = et_precio.getText().toString();
+
+                    datos.setCodigo(Integer.parseInt(cod));
+                    datos.setDescripcion(descripcion);
+                    datos.setPrecio(Double.parseDouble(precio));
+                    manto.modificar(MainActivity.this, datos);
+                    limpiarDatos();
+                    et_codigo.requestFocus();
+                }
+
+            }
+        });
+
+
+    }
+
+
 }
