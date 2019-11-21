@@ -44,5 +44,27 @@ public class MainActivity extends AppCompatActivity {
 
     AlertDialog.Builder dialogo;
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            new android.app.AlertDialog.Builder(this)
+                    .setIcon(R.drawable.ic_close)
+                    .setTitle("Advertencia")
+                    .setMessage("¿Realmente desea salir?")
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {//un listener que al pulsar, cierre la aplicacion
+                        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            MainActivity.this.finishAffinity();
+                        }
+                    })
+                    .show();
+            return true;
+        }
+        //para las demas cosas, se reenvia el evento al listener habitual
+        return super.onKeyDown(keyCode, event);
+    }
+
 
 }
