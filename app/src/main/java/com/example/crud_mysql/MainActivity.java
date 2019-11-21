@@ -219,4 +219,27 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        btn_consultaDescripcion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(et_descripcion.getText().toString().length()==0){
+                    et_descripcion.setError("Campo obligatorio");
+                    inputEd = false;
+                }else {
+                    inputEd=true;
+                }
+                if(inputEd){
+                    String descripcion = et_descripcion.getText().toString();
+                    //datos.setDescripcion(descripcion);
+                    manto.consultarDescripcion(MainActivity.this, descripcion);
+                    et_descripcion.requestFocus();
+                    //Hilo();
+
+                }
+
+            }
+        });
+
+
 }
