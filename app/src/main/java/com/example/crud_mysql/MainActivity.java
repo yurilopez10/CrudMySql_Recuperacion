@@ -404,4 +404,11 @@ public class MainActivity extends AppCompatActivity {
         return codigo;   //return preferences.getString("tiempo", "Sin configurar.");
     }
 
+    public String getSharedDescripcion(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("profeGamez", MODE_PRIVATE);
+        String descripcion = preferences.getString("descripcion","Sin descripción");
+        return descripcion;   //return preferences.getString("tiempo", "Sin configurar.");
+    }
+
+
 }
