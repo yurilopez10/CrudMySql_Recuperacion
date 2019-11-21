@@ -397,4 +397,11 @@ public class MainActivity extends AppCompatActivity {
         }catch (InterruptedException e){}
     }
 
+
+    public String getSharedCodigo(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("profeGamez", MODE_PRIVATE);
+        String codigo = preferences.getString("codigo","0");
+        return codigo;   //return preferences.getString("tiempo", "Sin configurar.");
+    }
+
 }
